@@ -10,7 +10,7 @@ const isProd = process.env.NODE_ENV === 'production'; //true or false
 const cssDev = ['style-loader', 'css-loader?sourceMap', 'sass-loader'];
 const cssProd = ExtractTextPlugin.extract({
     fallback: 'style-loader',
-    loader: ['css-loader','sass-loader'],
+    use: ['css-loader','sass-loader'],
     publicPath: '/dist'
 })
 const cssConfig = isProd ? cssProd : cssDev;
@@ -43,10 +43,10 @@ module.exports = {
 					'file-loader?name=images/[name].[ext]!image-webpack-loader&bypassOnDebug'
 				]
             },
-            { test: /\.(woff2?|svg)$/, loader: 'url-loader?limit=10000&name=fonts/[name].[ext]' },
-            { test: /\.(ttf|eot)$/, loader: 'file-loader?name=fonts/[name].[ext]' },
+            { test: /\.(woff2?|svg)$/, use: 'url-loader?limit=10000&name=fonts/[name].[ext]' },
+            { test: /\.(ttf|eot)$/, use: 'file-loader?name=fonts/[name].[ext]' },
             // Bootstrap 3
-            { test:/bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports-loader?jQuery=jquery' }
+            { test:/bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, use: 'imports-loader?jQuery=jquery' }
         ]
     },
     devServer: {

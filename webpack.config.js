@@ -7,10 +7,30 @@ const glob = require('glob');
 const PurifyCSSPlugin = require('purifycss-webpack');
 
 const isProd = process.env.NODE_ENV === 'production'; //true or false
-const cssDev = ['style-loader', 'css-loader?sourceMap', 'sass-loader'];
+const cssDev = [
+	'style-loader',
+	'css-loader?sourceMap',
+	'sass-loader',
+	{
+		loader: 'sass-resources-loader',
+		options: {
+			// Provide path to the file with resources
+			resources: [
+                './src/resources.scss'
+            ],
+		},
+	}];
 const cssProd = ExtractTextPlugin.extract({
     fallback: 'style-loader',
-    use: ['css-loader','sass-loader'],
+    use: ['css-loader','sass-loader', {
+		loader: 'sass-resources-loader',
+		options: {
+			// Provide path to the file with resources
+			resources: [
+				'./src/resources.scss'
+			],
+		},
+	}],
     publicPath: '/dist'
 })
 const cssConfig = isProd ? cssProd : cssDev;

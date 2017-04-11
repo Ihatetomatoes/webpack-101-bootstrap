@@ -6,6 +6,11 @@ html, body {
 }
 body {
     h1 {
-        color: $brand-success;
+        width: $section-width;
+        background-color: $code-color;
+    }
+
+    h2 {
+		color: $brand-info;
     }
 }

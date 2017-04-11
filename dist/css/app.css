@@ -4,5 +4,10 @@ body,html {
 }
 
 body h1 {
-  color: green;
+  width: 700px;
+  background-color: #c7254e;
+}
+
+body h2 {
+  color: #5bc0de;
 }

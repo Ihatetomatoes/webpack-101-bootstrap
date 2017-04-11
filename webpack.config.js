@@ -7,10 +7,30 @@ const glob = require('glob');
 const PurifyCSSPlugin = require('purifycss-webpack');
 
 const isProd = process.env.NODE_ENV === 'production'; //true or false
-const cssDev = ['style-loader', 'css-loader?sourceMap', 'sass-loader'];
+const cssDev = [
+	'style-loader',
+	'css-loader?sourceMap',
+	'sass-loader',
+	{
+		loader: 'sass-resources-loader',
+		options: {
+			// Provide path to the file with resources
+			resources: [
+                './src/resources.scss'
+            ],
+		},
+	}];
 const cssProd = ExtractTextPlugin.extract({
     fallback: 'style-loader',
-    loader: ['css-loader','sass-loader'],
+    use: ['css-loader','sass-loader', {
+		loader: 'sass-resources-loader',
+		options: {
+			// Provide path to the file with resources
+			resources: [
+				'./src/resources.scss'
+			],
+		},
+	}],
     publicPath: '/dist'
 })
 const cssConfig = isProd ? cssProd : cssDev;
@@ -40,18 +60,14 @@ module.exports = {
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
                 use: [
-            'file-loader?name=image/[name].[ext]',
-            //'file-loader?name=[name].[ext]&outputPath=images/&publicPath=images/',
-
-        {
-          loader: 'image-webpack-loader',
-          options: {}
-        }]
-      },
-            { test: /\.(woff2?)$/, loader: 'url-loader?limit=10000&name=fonts/[name].[ext]' },
-            { test: /\.(ttf|eot)$/, loader: 'file-loader?name=fonts/[name].[ext]' },
+                  'file-loader?name=images/[name].[ext],
+                  'image-webpack-loader&bypassOnDebug'
+                ]
+            },
+            { test: /\.(woff2?)$/, use: 'url-loader?limit=10000&name=fonts/[name].[ext]' },
+            { test: /\.(ttf|eot)$/, use: 'file-loader?name=fonts/[name].[ext]' },
             // Bootstrap 3
-            { test:/bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports-loader?jQuery=jquery' }
+            { test:/bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, use: 'imports-loader?jQuery=jquery' }
         ]
     },
     devServer: {

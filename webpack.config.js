@@ -60,8 +60,7 @@ module.exports = {
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
                 use: [
-                  'file-loader?name=images/[name].[ext],
-                  'image-webpack-loader&bypassOnDebug'
+                  'file-loader?name=images/[name].[ext]!image-webpack-loader&bypassOnDebug'
                 ]
             },
             { test: /\.(woff2?)$/, use: 'url-loader?limit=10000&name=fonts/[name].[ext]' },

@@ -40,12 +40,15 @@ module.exports = {
             {
                 test: /\.(jpe?g|png|gif|svg)$/i,
                 use: [
-                    'file-loader?name=images/[name].[ext]',
-                    //'file-loader?name=[name].[ext]&outputPath=images/&publicPath=images/',
-                    'image-webpack-loader'
-                ]
-            },
-            { test: /\.(woff2?|svg)$/, loader: 'url-loader?limit=10000&name=fonts/[name].[ext]' },
+            'file-loader?name=image/[name].[ext]',
+            //'file-loader?name=[name].[ext]&outputPath=images/&publicPath=images/',
+
+        {
+          loader: 'image-webpack-loader',
+          options: {}
+        }]
+      },
+            { test: /\.(woff2?)$/, loader: 'url-loader?limit=10000&name=fonts/[name].[ext]' },
             { test: /\.(ttf|eot)$/, loader: 'file-loader?name=fonts/[name].[ext]' },
             // Bootstrap 3
             { test:/bootstrap-sass[\/\\]assets[\/\\]javascripts[\/\\]/, loader: 'imports-loader?jQuery=jquery' }
